@@ -35,8 +35,8 @@ for(numl in 1:length(biosamples)){
     rsids = read.delim(paste0(vierstra_dir, "/", "Celltypes_P_sigs", "/", "rsids_FDR10_", biosamples[numl], ".txt"))[,1]
     all_rsids = c(all_rsids, rsids)
     if(length(rsids) > 1000){
-      annot = rep(0, nrow(ccre_features))
-      annot[match(intersect(ccre_features$SNP, rsids_test), ccre_features$SNP)] = length(rsids_test)/nrow(ccre_features)
+      annot = rep(length(rsids_test)/nrow(ccre_features), nrow(ccre_features))
+      annot[match(intersect(ccre_features$SNP, rsids_test), ccre_features$SNP)] = 0
       annot[match(intersect(ccre_features$SNP, rsids), ccre_features$SNP)] = 1
       biosamples_out = c(biosamples_out, biosamples[numl])
       annotpool_list[[kk]] = annot
@@ -49,15 +49,16 @@ for(numl in 1:length(biosamples)){
 annotpool = do.call(cbind, annotpool_list)
 colnames(annotpool) = biosamples_out
 
-all_rsids = unique(all_rsids)
-
-annot = rep(0, nrow(ccre_features))
-annot[match(intersect(ccre_features$SNP, rsids_test), ccre_features$SNP)] = length(rsids_test)/nrow(ccre_features)
-annot[match(intersect(ccre_features$SNP, all_rsids), ccre_features$SNP)] = 1
-annotpool$all = annot
-
 annotpool2 = cbind.data.frame(ccre_features[,1:4], annotpool)
 fwrite(annotpool2, file = paste0(out_v2f_file), row.names=F, col.names=T, sep = "\t", quote=F)
+
+
+all_rsids = unique(all_rsids)
+
+annot = rep(length(rsids_test)/nrow(ccre_features), nrow(ccre_features))
+annot[match(intersect(ccre_features$SNP, rsids_test), ccre_features$SNP)] = 0
+annot[match(intersect(ccre_features$SNP, all_rsids), ccre_features$SNP)] = 1
+annotpool$all = annot
 
 
 

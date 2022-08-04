@@ -44,7 +44,7 @@ for(numm in 1:length(tf_names)){
 
 merged_tabb = do.call(rbind, merged_tabb_list)
 rsids = unique(merged_tabb$ID)
-write.table(rsids, file = paste0(adastra_dir, "/", "Celltypes_P_sigs/", "rsids_tested_adastra.txt"),
+write.table(rsids, file = paste0(adastra_dir, "/", "Celltypes_P_sigs_1KG/", "rsids_tested_adastra.txt"),
             row.names = F, col.names = F, sep = "\t", quote=F)
 
 #####################################  Extract cell line level ASB variants in ADASTRA   ######################################################################
@@ -69,7 +69,7 @@ for(cc in cell_lines){
   }
 
   rsids = unique(merged_tabb$ID)
-  write.table(rsids, file =  paste0(adastra_dir, "/", "Celltypes_P_sigs/", "rsids_FDR10_", cc, ".txt"),
+  write.table(rsids, file =  paste0(adastra_dir, "/", "Celltypes_P_sigs_1KG/", "rsids_FDR10_", cc, ".txt"),
               row.names = F, col.names = F, sep = "\t", quote=F)
 }
 
@@ -97,7 +97,7 @@ write.table(merged_tabb, file = paste0(adastra_dir, "/", "AllCL_ADASTRA_sig_SNPs
 
 snp_tabb1 = data.frame(fread(paste0(adastra_dir, "/", "AllCL_ADASTRA_sig_SNPs_FDR10_refalt.txt")))
 rsids_all = unique(snp_tabb1$ID)
-write.table(rsids_all, file = paste0(adastra_dir, "/", "Celltypes_P_sigs/", "rsids_FDR10_", "all", ".txt"),
+write.table(rsids_all, file = paste0(adastra_dir, "/", "Celltypes_P_sigs_1KG/", "rsids_FDR10_", "all", ".txt"),
             row.names = F, col.names = F, sep = "\t", quote=F)
 
 snp_tabb1 = data.frame(fread(paste0(adastra_dir, "/", "AllCL_ADASTRA_sig_SNPs_FDR10_refalt.txt")))
@@ -107,7 +107,7 @@ fix_celltypes = c("CD", "GM12", "T_", "B_", "monocy", "neutro", "Mono", "Neutro"
 ll1 = unique(ll[unlist(sapply(fix_celltypes, function(x) return(grep(x, ll))))])
 snp_tabb2 = snp_tabb1[ which(snp_tabb1$CL %in% ll1 == T), ]
 rsids_all = unique(snp_tabb2$ID)
-write.table(rsids_all, file = paste0(adastra_dir, "/", "Celltypes_P_sigs/", "rsids_FDR10_", "blood", ".txt"),
+write.table(rsids_all, file = paste0(adastra_dir, "/", "Celltypes_P_sigs_1KG/", "rsids_FDR10_", "blood", ".txt"),
             row.names = F, col.names = F, sep = "\t", quote=F)
 
 ll = unique(snp_tabb1$CL)
@@ -115,7 +115,7 @@ fix_celltypes = c("Liver", "liver", "HepG2", "Hepato", "hepato")
 ll1 = unique(ll[unlist(sapply(fix_celltypes, function(x) return(grep(x, ll))))])
 snp_tabb2 = snp_tabb1[ which(snp_tabb1$CL %in% ll1 == T), ]
 rsids_all = unique(snp_tabb2$ID)
-write.table(rsids_all, file = paste0(adastra_dir, "/", "Celltypes_P_sigs/", "rsids_FDR10_", "liver", ".txt"),
+write.table(rsids_all, file = paste0(adastra_dir, "/", "Celltypes_P_sigs_1KG/", "rsids_FDR10_", "liver", ".txt"),
             row.names = F, col.names = F, sep = "\t", quote=F)
 
 ll = unique(snp_tabb1$CL)
@@ -123,7 +123,7 @@ fix_celltypes = c("Lung", "lung", "pulmo", "Pulmo")
 ll1 = unique(ll[unlist(sapply(fix_celltypes, function(x) return(grep(x, ll))))])
 snp_tabb2 = snp_tabb1[ which(snp_tabb1$CL %in% ll1 == T), ]
 rsids_all = unique(snp_tabb2$ID)
-write.table(rsids_all, file = paste0(adastra_dir, "/", "Celltypes_P_sigs/", "rsids_FDR10_", "lung", ".txt"),
+write.table(rsids_all, file = paste0(adastra_dir, "/", "Celltypes_P_sigs_1KG/", "rsids_FDR10_", "lung", ".txt"),
             row.names = F, col.names = F, sep = "\t", quote=F)
 
 ll = unique(snp_tabb1$CL)
@@ -131,7 +131,7 @@ fix_celltypes = c("Skin", "skin", "kerat", "Kerat")
 ll1 = unique(ll[unlist(sapply(fix_celltypes, function(x) return(grep(x, ll))))])
 snp_tabb2 = snp_tabb1[ which(snp_tabb1$CL %in% ll1 == T), ]
 rsids_all = unique(snp_tabb2$ID)
-write.table(rsids_all, file = paste0(adastra_dir, "/", "Celltypes_P_sigs/", "rsids_FDR10_", "skin", ".txt"),
+write.table(rsids_all, file = paste0(adastra_dir, "/", "Celltypes_P_sigs_1KG/", "rsids_FDR10_", "skin", ".txt"),
             row.names = F, col.names = F, sep = "\t", quote=F)
 
 ll = unique(snp_tabb1$CL)
@@ -139,7 +139,7 @@ fix_celltypes =c("Intestine", "intestine", "bowel", "Bowel", "colon", "Colon", "
 ll1 = unique(ll[unlist(sapply(fix_celltypes, function(x) return(grep(x, ll))))])
 snp_tabb2 = snp_tabb1[ which(snp_tabb1$CL %in% ll1 == T), ]
 rsids_all = unique(snp_tabb2$ID)
-write.table(rsids_all, file = paste0(adastra_dir, "/", "Celltypes_P_sigs/", "rsids_FDR10_", "gut", ".txt"),
+write.table(rsids_all, file = paste0(adastra_dir, "/", "Celltypes_P_sigs_1KG/", "rsids_FDR10_", "gut", ".txt"),
             row.names = F, col.names = F, sep = "\t", quote=F)
 
 
@@ -149,7 +149,7 @@ ll1 = unique(ll[unlist(sapply(fix_celltypes, function(x) return(grep(x, ll))))])
 ll1 = ll1[-11]
 snp_tabb2 = snp_tabb1[ which(snp_tabb1$CL %in% ll1 == T), ]
 rsids_all = unique(snp_tabb2$ID)
-write.table(rsids_all, file = paste0(adastra_dir, "/", "Celltypes_P_sigs/", "rsids_FDR10_", "kidney", ".txt"),
+write.table(rsids_all, file = paste0(adastra_dir, "/", "Celltypes_P_sigs_1KG/", "rsids_FDR10_", "kidney", ".txt"),
             row.names = F, col.names = F, sep = "\t", quote=F)
 
 
@@ -158,7 +158,7 @@ fix_celltypes = c("Brain", "brain", "neur", "Neur", "Spin", "spin", "_astro", "A
 ll1 = unique(ll[unlist(sapply(fix_celltypes, function(x) return(grep(x, ll))))])
 snp_tabb2 = snp_tabb1[ which(snp_tabb1$CL %in% ll1 == T), ]
 rsids_all = unique(snp_tabb2$ID)
-write.table(rsids_all, file = paste0(adastra_dir, "/", "Celltypes_P_sigs/", "rsids_FDR10_", "brain", ".txt"),
+write.table(rsids_all, file = paste0(adastra_dir, "/", "Celltypes_P_sigs_1KG/", "rsids_FDR10_", "brain", ".txt"),
             row.names = F, col.names = F, sep = "\t", quote=F)
 
 
@@ -167,7 +167,7 @@ fix_celltypes = c("heart", "Heart")
 ll1 = unique(ll[unlist(sapply(fix_celltypes, function(x) return(grep(x, ll))))])
 snp_tabb2 = snp_tabb1[ which(snp_tabb1$CL %in% ll1 == T), ]
 rsids_all = unique(snp_tabb2$ID) ## very few picked
-write.table(rsids_all, file = paste0(adastra_dir, "/", "Celltypes_P_sigs/", "rsids_FDR10_", "heart", ".txt"),
+write.table(rsids_all, file = paste0(adastra_dir, "/", "Celltypes_P_sigs_1KG/", "rsids_FDR10_", "heart", ".txt"),
             row.names = F, col.names = F, sep = "\t", quote=F)
 
 
@@ -176,7 +176,7 @@ fix_celltypes = c("adipo")
 ll1 = unique(ll[unlist(sapply(fix_celltypes, function(x) return(grep(x, ll))))])
 snp_tabb2 = snp_tabb1[ which(snp_tabb1$CL %in% ll1 == T), ]
 rsids_all = unique(snp_tabb2$ID) ## very few picked
-write.table(rsids_all, file = paste0(adastra_dir, "/", "Celltypes_P_sigs/", "rsids_FDR10_", "fat", ".txt"),
+write.table(rsids_all, file = paste0(adastra_dir, "/", "Celltypes_P_sigs_1KG/", "rsids_FDR10_", "fat", ".txt"),
             row.names = F, col.names = F, sep = "\t", quote=F)
 
 
@@ -184,17 +184,17 @@ write.table(rsids_all, file = paste0(adastra_dir, "/", "Celltypes_P_sigs/", "rsi
 ####################   Generate V2F annotations for ADASTRA corresponding to all biosamples  #######################################
 
 
-bio_types = as.character(sapply(as.character(sapply(list.files(paste0(adastra_dir, "/", "Celltypes_P_sigs/"), pattern = "rsids_FDR"),
+bio_types = as.character(sapply(as.character(sapply(list.files(paste0(adastra_dir, "/", "Celltypes_P_sigs_1KG/"), pattern = "rsids_FDR"),
                                                     function(x) return(strsplit(x, "rsids_")[[1]][2]))), function(x) return(strsplit(x, ".txt")[[1]][1])))
 
-rsids_test = read.table(paste0(adastra_dir, "/", "Celltypes_P_sigs/", "rsids_tested_adastra.txt"), header=F)[,1]
+rsids_test = read.table(paste0(adastra_dir, "/", "Celltypes_P_sigs_1KG/", "rsids_tested_adastra.txt"), header=F)[,1]
 
 for(numchr in 1:22){
   base = data.frame(fread(paste0( base_dir, "/",
                                  "baseline_Epi_hg38", "/",
                                  "baselineLD.", numchr, ".annot.gz")))
   for(tt in 1:length(bio_types)){
-    rsids_tt = read.table(paste0(adastra_dir, "/", "Celltypes_P_sigs/",
+    rsids_tt = read.table(paste0(adastra_dir, "/", "Celltypes_P_sigs_1KG/",
                                  "rsids_", bio_types[tt], ".txt"), header=F)[,1]
     length(rsids_tt)
     annot1 = rep(0, nrow(base))
@@ -224,7 +224,7 @@ for(numchr in 1:22){
 
 ccre_features = data.frame(fread("/n/groups/price/kushal/ENCODE/data/Deliverables/cCRE/cCRE_v04_13Jun2022.txt"))
 
-rsids_test = unique(read.table(paste0(adastra_dir, "/", "Celltypes_P_sigs/", "rsids_tested_adastra.txt"), header=F)[,1])
+rsids_test = unique(read.table(paste0(adastra_dir, "/", "Celltypes_P_sigs_1KG/", "rsids_tested_adastra.txt"), header=F)[,1])
 
 snp_tabb1 = data.frame(fread(paste0(adastra_dir, "/", "AllCL_ADASTRA_sig_SNPs_FDR10_refalt.txt")))
 ll = unique(snp_tabb1$CL)
@@ -233,8 +233,8 @@ biosamples = c()
 for(numl in 1:length(ll)){
   rsids = snp_tabb1$ID[snp_tabb1$CL == ll[numl]]
   if(length(rsids) > 1000){
-    annot = rep(0, nrow(ccre_features))
-    annot[match(intersect(ccre_features$SNP, rsids_test), ccre_features$SNP)] = length(rsids_test)/nrow(ccre_features)
+    annot = rep(length(rsids_test)/nrow(ccre_features), nrow(ccre_features))
+    annot[match(intersect(ccre_features$SNP, rsids_test), ccre_features$SNP)] = 0
     annot[match(intersect(ccre_features$SNP, rsids), ccre_features$SNP)] = 1
     biosamples = c(biosamples, ll[numl])
     annotpool = cbind(annotpool, annot)
@@ -242,14 +242,14 @@ for(numl in 1:length(ll)){
   cat("We are at biosample:", numl, "\n")
 }
 
-bio_types = as.character(sapply(as.character(sapply(list.files(paste0(adastra_dir, "/", "Celltypes_P_sigs/"), pattern = "rsids_FDR"),
+bio_types = as.character(sapply(as.character(sapply(list.files(paste0(adastra_dir, "/", "Celltypes_P_sigs_1KG/"), pattern = "rsids_FDR"),
                                                     function(x) return(strsplit(x, "rsids_FDR10_")[[1]][2]))), function(x) return(strsplit(x, ".txt")[[1]][1])))
 
 for(tt in 1:length(bio_types)){
-  rsids = read.table(paste0(adastra_dir, "/", "Celltypes_P_sigs/",
+  rsids = read.table(paste0(adastra_dir, "/", "Celltypes_P_sigs_1KG/",
                                "rsids_FDR10_", bio_types[tt], ".txt"), header=F)[,1]
-  annot = rep(0, nrow(ccre_features))
-  annot[match(intersect(ccre_features$SNP, rsids_test), ccre_features$SNP)] = length(rsids_test)/nrow(ccre_features)
+  annot = rep(length(rsids_test)/nrow(ccre_features), nrow(ccre_features))
+  annot[match(intersect(ccre_features$SNP, rsids_test), ccre_features$SNP)] = 0
   annot[match(intersect(ccre_features$SNP, rsids), ccre_features$SNP)] = 1
   annotpool = cbind(annotpool, annot)
   biosamples = c(biosamples, bio_types[tt])
