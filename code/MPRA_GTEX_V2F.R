@@ -13,14 +13,14 @@ dput(opt)
 mpra_gtex_dir = opt$mpra_gtex_dir
 bimdir = opt$bimdir
 
-# mpra_gtex_dir = "/n/groups/price/kushal/ENCODE/data/MPRA_GTEx/Processed_Results/"
+# mpra_gtex_dir = "/n/groups/price/kushal/ENCODE/data/MPRA_GTEx"
 # bimdir = "/n/groups/price/kushal/extras/BIMS"
 
 
 celltypes = c("HCT116", "HepG2", "SKNSH", "K562")
 rsids_vec = c()
 for(celltype in celltypes){
-  ll = list.files(paste0(mpra_gtex_dir), pattern = celltype)
+  ll = list.files(paste0(mpra_gtex_dir, "/", "Processed_Results"), pattern = celltype)
   snp_ids_all = c()
   for(numl in 1:length(ll)){
     tabb = read.table(paste0(mpra_gtex_dir, "/", ll[numl]), header=T)
@@ -66,7 +66,7 @@ write.table(rsids_vec, file = paste0(mpra_gtex_dir, "/", "Celltypes_P_sigs_1KG/"
 celltypes = c("HCT116", "HepG2", "SKNSH", "K562")
 rsids_vec = c()
 for(celltype in celltypes){
-  ll = list.files(paste0(mpra_gtex_dir), pattern = celltype)
+  ll = list.files(paste0(mpra_gtex_dir, "/", "Processed_Results"), pattern = celltype)
   snp_ids_all = c()
   for(numl in 1:length(ll)){
     tabb = read.table(paste0(mpra_gtex_dir, "/", ll[numl]), header=T)
@@ -98,4 +98,29 @@ for(celltype in celltypes){
 rsids_vec = unique(rsids_vec)
 write.table(rsids_vec, file = paste0(mpra_gtex_dir, "/", "Celltypes_P_sigs_1KG/", "rsids_tested.txt"),
             quote=F, sep = "\t", col.names=F, row.names=F)
+
+
+###############################################  Create MPRA GTEx features  #######################################################
+
+ccre_features = data.frame(fread("/n/groups/price/kushal/ENCODE/data/Deliverables/cCRE/cCRE_v04_13Jun2022.txt"))
+rsids_test = unique(read.table(paste0(mpra_gtex_dir, "/", "Celltypes_P_sigs_1KG/", "rsids_tested.txt"), header=F)[,1])
+annotpool = c()
+biosamples = c()
+celltypes = as.character(sapply(as.character(sapply(list.files(paste0(mpra_gtex_dir, "/", "Celltypes_P_sigs_1KG/"), pattern = "rsids_FDR"),
+                                                    function(x) return(strsplit(x, "rsids_FDR10_")[[1]][2]))), function(x) return(strsplit(x, ".txt")[[1]][1])))
+
+for(numl in 1:length(celltypes)){
+  rsids = unique(read.table(paste0(mpra_gtex_dir, "/", "Celltypes_P_sigs_1KG/", "rsids_FDR10_", celltypes[numl], ".txt"), header=F)[,1])
+  annot = rep(length(rsids_test)/nrow(ccre_features), nrow(ccre_features))
+  annot[match(intersect(ccre_features$SNP, rsids_test), ccre_features$SNP)] = 0
+  annot[match(intersect(ccre_features$SNP, rsids), ccre_features$SNP)] = 1
+  biosamples = c(biosamples, celltypes[numl])
+  annotpool = cbind(annotpool, annot)
+  cat("We are at biosample:", numl, "\n")
+}
+
+colnames(annotpool) = celltypes
+annotpool2 = cbind.data.frame(ccre_features[,1:4], annotpool)
+fwrite(annotpool2, file = "/n/groups/price/kushal/ENCODE/data/Deliverables/AllV2F/MPRA_GTEX_allelic_effect_features_Aug032022.txt",
+       row.names=F, col.names=T, sep = "\t", quote=F)
 

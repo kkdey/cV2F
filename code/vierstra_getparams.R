@@ -16,6 +16,7 @@ vierstra_dir = opt$vierstra_dir
 annot_dir = opt$annot_dir
 
 # vierstra_dir = "/n/groups/price/kushal/ENCODE/data/Vierstra/Version2"
+# vierstra_dir = "/n/groups/price/kushal/ENCODE/data/Vierstra/Version1"
 
 #########################  Generate a combo allelic imbalance data aross all biosamples  ####################
 ################# This part of the code several hours to run  #########################################
@@ -37,8 +38,12 @@ sd_allelic_ratio = sd((merged_altref_tabb[,2] - merged_altref_tabb[,1])/merged_a
 alpha_allelic_ratio = mean_allelic_ratio*((1/sd_allelic_ratio^2) - 1)
 beta_allelic_ratio = (1 - mean_allelic_ratio)*((1/sd_allelic_ratio^2) - 1)
 
-## alpha_allelic ratio = 12.4
+## alpha_allelic ratio = 12.4 (version 2)
 ## beta_allelic_ratio = 105
+
+## alpha_allelic ratio = 75 (version 1)
+## beta_allelic_ratio = 75
+
 
 library(Biobase)
 library(TailRank)

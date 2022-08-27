@@ -111,7 +111,7 @@ celltypes = as.character(sapply(as.character(sapply(list.files(paste0(mpra_dir, 
                                                     function(x) return(strsplit(x, "rsids_FDR10_")[[1]][2]))), function(x) return(strsplit(x, ".txt")[[1]][1])))
 
 for(numl in 1:length(celltypes)){
-  rsids = unique(read.table(paste0(mpra_dir, "/", "Celltypes_P_sigs_1KG/", "rsids_FDR10_", celltype, ".txt"), header=F)[,1])
+  rsids = unique(read.table(paste0(mpra_dir, "/", "Celltypes_P_sigs_1KG/", "rsids_FDR10_", celltypes[numl], ".txt"), header=F)[,1])
   annot = rep(length(rsids_test)/nrow(ccre_features), nrow(ccre_features))
   annot[match(intersect(ccre_features$SNP, rsids_test), ccre_features$SNP)] = 0
   annot[match(intersect(ccre_features$SNP, rsids), ccre_features$SNP)] = 1
